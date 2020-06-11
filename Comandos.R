@@ -19,3 +19,8 @@ Empresa$Fecha <- ymd_hm(Empresa$Fecha) # guardamos los cambia en la misma linea 
 # Empresa <- Empresa[ ,-c(4)] # estoy pensando tambien borrar otros campos en la cual su valor es repeptitivo 
 getwd()
 library(dplyr) # manipulacion de datos 
+
+# format recupera el dato 
+Empresa$dia <- format(Empresa$Fecha,"%d")
+Empresa$hora <- format(Empresa$Fecha,"%H")
+Empresa$minutos <- format(Empresa$Fecha,"%M")
