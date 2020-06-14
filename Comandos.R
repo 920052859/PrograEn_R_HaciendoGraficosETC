@@ -54,9 +54,9 @@ Empresa$minutos3 <- minute(Empresa$Fecha)
 
 #### Poniendo en un  formato mas simple (Fecha) ####
 Empresa$Fecha <- as.Date(c(Empresa$Fecha))
-
+###############################################
 #### Tabla de la suma de la Energia Activa ####
-
+###############################################
 # Nueva tabla segun el dia
 Resumen <- data.frame(  Dia = integer(), VentaTotal= double())
 NuevaTabla <- data.frame()
@@ -70,6 +70,40 @@ for(y in unique(Empresa$dia)){
 ####Grafico de las suma por dia de la Energia activa ####
 plot(x = Resumen$Dia, y = Resumen$Venta,main="Suma por dia de la Energia Activa",
      xlab="Numero de Dia",ylab="Cantidad de Energia",col="blue",type = 'l')
+
+###############################################
+#### Tabla de la Media de la Energia Activa####
+###############################################
+# sumar ventas por año
+for(y in unique(Empresa$dia)){
+  NuevaTabla <- data.frame(Dia = y,MediaActiva=mean(Empresa[Empresa$dia==y,]$EnergíaActiva))
+  Resumen <- rbind( Resumen , NuevaTabla )
+}
+
+# plot(x = Resumen$Dia, y = Resumen$Venta) + geom_point()
+plot(x = Resumen$Dia, y = Resumen$MediaActiva,main="MEDIA POR DIAS (MES DE JUNIO)",xlab="Numero de Dia",ylab="Cantidad de Energia Media",col="red",type = "h")
+
+###############################
+#### Mediana por dias 2018 ####
+###############################
+
+
+
+# Nueva tabla segun el dia
+Resumen <- data.frame(  Dia = integer(), MedianaActiva= double())
+NuevaTabla <- data.frame()
+
+# sumar ventas por año
+for(y in unique(Empresa$dia)){
+  NuevaTabla <- data.frame(Dia = y,MedianaActiva=median(Empresa[Empresa$dia==y,]$EnergíaActiva))
+  Resumen <- rbind( Resumen , NuevaTabla )
+}
+
+par(col='blue', col.axis='darkgreen', col.lab='darkblue',
+    col.main='darkgreen', col.sub='purple', bty='n')
+plot(x = Resumen$Dia,y = Resumen$MedianaActiva, pch=20, cex=1, las=1.5,
+     main='MEDIANA POR DIAS EN EL MES DE JUNIO', xlab='Numero de Dia',
+     ylab='Mediana', sub='Suministro =  CL0036, CodEmpresa = 	CEEP, PuntoSuministro = B0047')
 
 
 
